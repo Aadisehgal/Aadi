@@ -22,7 +22,6 @@ allprojects {
         google()
         mavenCentral()
         maven { url 'https://jitpack.io' }
-        // NOTE: Do NOT use node_modules/react-native/android — it has no Maven artifacts in Termux/CI.
-        // com.facebook.react:react-android:0.74.3 and hermes-android:0.74.3 are on mavenCentral.
+        maven { url("$rootDir/../node_modules/react-native/android") }
     }
 }
