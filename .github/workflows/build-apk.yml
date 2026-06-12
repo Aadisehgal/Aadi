@@ -49,6 +49,23 @@ jobs:
           fi
         done
 
+    - name: Fix buildConfig for all modules
+      run: |
+        for f in \
+          node_modules/@react-native-community/netinfo/android/build.gradle \
+          node_modules/@react-native-async-storage/async-storage/android/build.gradle \
+          node_modules/react-native-device-info/android/build.gradle \
+          node_modules/@notifee/react-native/android/build.gradle \
+          node_modules/react-native-mmkv/android/build.gradle \
+          node_modules/react-native-permissions/android/build.gradle \
+          node_modules/react-native-vector-icons/android/build.gradle \
+          node_modules/react-native-tts/android/build.gradle ; do
+          if [ -f "$f" ]; then
+            grep -q "buildConfig true" "$f" || \
+            sed -i '/^android {/a\    buildFeatures { buildConfig true }' "$f"
+          fi
+        done
+
     - name: Create debug keystore
       run: |
         cd android/app
@@ -72,6 +89,7 @@ jobs:
     - name: Build Debug APK
       run: |
         cd android
+        chmod +x gradlew
         ./gradlew assembleDebug --no-daemon --stacktrace
       env:
         ANDROID_HOME: /usr/local/lib/android/sdk
