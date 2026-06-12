@@ -36,7 +36,7 @@ jobs:
     - name: Install dependencies
       run: yarn install --frozen-lockfile
 
-    - name: Patch subproject build.gradle files
+    - name: Patch react-native dependencies
       run: |
         for f in \
           node_modules/react-native-gesture-handler/android/build.gradle \
@@ -55,7 +55,19 @@ jobs:
           if grep -q "buildConfigField\|resValue" "$f" 2>/dev/null; then
             if ! grep -q "buildConfig true" "$f"; then
               sed -i '/^android {/a\    buildFeatures { buildConfig true }' "$f"
-              echo "Patched: $f"
+            fi
+          fi
+        done
+
+    - name: Fix missing namespace in old modules
+      run: |
+        find node_modules -name "build.gradle" | while read f; do
+          if grep -q "namespace" "$f" 2>/dev/null; then continue; fi
+          manifest="$(dirname $f)/src/main/AndroidManifest.xml"
+          if [ -f "$manifest" ]; then
+            pkg=$(grep -o 'package="[^"]*"' "$manifest" | head -1 | sed 's/package="//;s/"//')
+            if [ -n "$pkg" ]; then
+              sed -i "/^android {/a\    namespace \"$pkg\"" "$f"
             fi
           fi
         done
@@ -78,7 +90,6 @@ jobs:
           --entry-file index.js \
           --bundle-output android/app/src/main/assets/index.android.bundle \
           --assets-dest android/app/src/main/res
-        echo "Bundle size: $(ls -lh android/app/src/main/assets/index.android.bundle)"
 
     - name: Build Debug APK
       run: |
