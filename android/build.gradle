@@ -1,5 +1,7 @@
 buildscript {
     ext {
+        reactNativeDir = file("$rootDir/../node_modules/react-native/android")
+        jscDir = file("$rootDir/../node_modules/jsc-android/dist")
         buildToolsVersion = "35.0.0"
         minSdkVersion = 24
         compileSdkVersion = 35
@@ -10,8 +12,6 @@ buildscript {
     repositories {
         google()
         mavenCentral()
-        maven { url "$rootDir/../node_modules/react-native/android" }
-        maven { url "$rootDir/../node_modules/jsc-android/dist" }
     }
     dependencies {
         classpath("com.android.tools.build:gradle:8.6.0")
@@ -21,10 +21,15 @@ buildscript {
 
 allprojects {
     repositories {
-        google()
-        mavenCentral()
         maven { url "$rootDir/../node_modules/react-native/android" }
         maven { url "$rootDir/../node_modules/jsc-android/dist" }
+        google()
+        mavenCentral()
+        maven { url "https://www.jitpack.io" }
+    }
+    repositories {
+        google()
+        mavenCentral()
         maven { url 'https://jitpack.io' }
     }
 }
