@@ -21,7 +21,13 @@ buildscript {
 
 allprojects {
     repositories {
+        mavenCentral()
+        google()
         maven { url "$rootDir/../node_modules/react-native/android" }
+        maven { url "$rootDir/../node_modules/jsc-android/dist" }
+        maven { url "https://jitpack.io" }
+    }
+}
         maven { url "$rootDir/../node_modules/jsc-android/dist" }
         google()
         mavenCentral()
