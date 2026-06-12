@@ -1,0 +1,16 @@
+pluginManagement {
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+
+rootProject.name = 'manu-ai'
+
+// ─── React Native Autolinking ─────────────────────────────────────────────────
+apply from: file("../node_modules/@react-native-community/cli-platform-android/native_modules.gradle")
+applyNativeModulesSettingsGradle(settings)
+
+include ':app'
+// gesture-handler, reanimated, safe-area-context are auto-included via applyNativeModulesSettingsGradle above
