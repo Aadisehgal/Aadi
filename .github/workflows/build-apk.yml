@@ -40,6 +40,7 @@ jobs:
       run: |
         for f in \
           node_modules/react-native-gesture-handler/android/build.gradle \
+          node_modules/@react-native-clipboard/clipboard/android/build.gradle \
           node_modules/react-native-reanimated/android/build.gradle \
           node_modules/react-native-safe-area-context/android/build.gradle ; do
           if [ -f "$f" ]; then
