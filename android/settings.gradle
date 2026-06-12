@@ -6,6 +6,8 @@ pluginManagement {
     }
 }
 
+plugins { id("com.facebook.react.settings") }
+
 rootProject.name = 'manu-ai'
 
 // ─── React Native Autolinking ─────────────────────────────────────────────────
@@ -14,3 +16,5 @@ applyNativeModulesSettingsGradle(settings)
 
 include ':app'
 // gesture-handler, reanimated, safe-area-context are auto-included via applyNativeModulesSettingsGradle above
+
+includeBuild("../node_modules/@react-native/gradle-plugin")
