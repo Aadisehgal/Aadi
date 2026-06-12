@@ -34,7 +34,7 @@ jobs:
         sdkmanager "platforms;android-35" "build-tools;35.0.0" "platform-tools" >/dev/null
 
     - name: Install dependencies
-      run: yarn install --frozen-lockfile
+      run: yarn install --no-immutable
 
     - name: Patch react-native dependencies
       run: |
