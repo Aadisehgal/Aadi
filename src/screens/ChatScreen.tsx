@@ -35,6 +35,13 @@ function ChatScreenInner() {
   const { isListening, waveformData, voiceMode, startListening, stopListening } = useVoice();
   const isSpeaking = useVoiceStore((s) => s.isSpeaking);
 
+  // Auto-create conversation if none exists
+  React.useEffect(() => {
+    if (!chatStore.currentConversationId) {
+      chatStore.createConversation();
+    }
+  }, [chatStore]);
+
   const handleStopSpeaking = useCallback(() => {
     ttsService.stop().catch(() => {});
   }, []);
@@ -260,11 +267,6 @@ function ChatScreenInner() {
           )}
         </View>
 
-        {/* Banner Ad */}
-        <BannerAd
-          unitId={adService.getBannerAdUnitId()}
-          size={BannerAdSize.BANNER}
-          onAdFailedToLoad={() => {}}
         />
     </KeyboardAvoidingView>
   );
