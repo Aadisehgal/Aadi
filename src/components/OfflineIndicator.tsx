@@ -1,12 +1,5 @@
-import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import Reanimated, {
-  useSharedValue,
-  useAnimatedStyle,
-  withRepeat,
-  withTiming,
-  withSequence,
-} from 'react-native-reanimated';
+import React, { useEffect, useRef } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, Animated } from 'react-native';
 
 interface OfflineIndicatorProps {
   queuedCount?: number;
@@ -15,29 +8,22 @@ interface OfflineIndicatorProps {
 
 const OfflineIndicator = React.memo(
   ({ queuedCount = 0, onRetry }: OfflineIndicatorProps) => {
-    const pulse = useSharedValue(1);
+    const pulse = useRef(new Animated.Value(1)).current;
 
-    React.useEffect(() => {
-      pulse.value = withRepeat(
-        withSequence(
-          withTiming(0.6, { duration: 800 }),
-          withTiming(1.0, { duration: 800 })
-        ),
-        -1,
-        false
+    useEffect(() => {
+      const anim = Animated.loop(
+        Animated.sequence([
+          Animated.timing(pulse, { toValue: 0.6, duration: 800, useNativeDriver: true }),
+          Animated.timing(pulse, { toValue: 1.0, duration: 800, useNativeDriver: true }),
+        ])
       );
-      return () => {
-        pulse.value = 1;
-      };
+      anim.start();
+      return () => anim.stop();
     }, [pulse]);
-
-    const dotStyle = useAnimatedStyle(() => ({
-      opacity: pulse.value,
-    }));
 
     return (
       <View style={styles.container}>
-        <Reanimated.View style={[styles.dot, dotStyle]} />
+        <Animated.View style={[styles.dot, { opacity: pulse }]} />
         <Text style={styles.text}>
           {queuedCount > 0
             ? `Offline — ${queuedCount} message${queuedCount > 1 ? 's' : ''} queued`
