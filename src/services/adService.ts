@@ -8,8 +8,8 @@ import MobileAds, {
 } from 'react-native-google-mobile-ads';
 import { storageService } from '@services/storageService';
 
-const BANNER_ID = TestIds.BANNER;
-const REWARDED_ID = TestIds.REWARDED;
+const BANNER_ID = 'ca-app-pub-3684441716460567/7116352504';
+const REWARDED_ID = 'ca-app-pub-3684441716460567/7885822933';
 const AD_LOAD_TIMEOUT_MS = 10000;
 
 export type RewardedAdResult = 'rewarded' | 'dismissed' | 'failed';
