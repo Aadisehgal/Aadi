@@ -16,6 +16,10 @@ android {
         multiDexEnabled true
     }
 
+    buildFeatures {
+        buildConfig true
+    }
+
     signingConfigs {
         debug {
             storeFile file('debug.keystore')
@@ -64,20 +68,12 @@ android {
     }
 }
 
-// Local lib repos removed — these subdirs don't exist in node_modules and caused resolution failures.
-
 dependencies {
-    // React Native core (from mavenCentral)
     implementation("com.facebook.react:react-android:0.74.3")
     implementation("com.facebook.react:hermes-android:0.74.3")
     implementation("androidx.multidex:multidex:2.0.1")
-
-    // Ads
     implementation("com.google.android.gms:play-services-ads:23.2.0")
-
-    // Note: gesture-handler, reanimated, safe-area-context are handled by autolinking below
 }
 
-// ─── React Native Autolinking ─────────────────────────────────────────────────
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle")
 applyNativeModulesAppBuildGradle(project)
