@@ -66,6 +66,15 @@ jobs:
           fi
         done
 
+    - name: Fix JVM target for all modules
+      run: |
+        find node_modules -name "build.gradle" | while read f; do
+          sed -i 's/JavaVersion\.VERSION_1_8/JavaVersion.VERSION_17/g' "$f"
+          sed -i 's/JavaVersion\.VERSION_11/JavaVersion.VERSION_17/g' "$f"
+          sed -i 's/jvmTarget = "1\.8"/jvmTarget = "17"/g' "$f"
+          sed -i 's/jvmTarget = "11"/jvmTarget = "17"/g' "$f"
+        done
+
     - name: Create debug keystore
       run: |
         cd android/app
