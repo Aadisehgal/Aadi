@@ -19,6 +19,9 @@ import { CuteLanguageModule } from '@modules/CuteLanguageModule';
 
 const LIP_SYNC_INTERVAL_MS = 100;
 
+const GITHUB_RAW = 'https://raw.githubusercontent.com/Aadisehgal/Aadi/main/assets/avatars';
+const AVATAR_MODELS = ['aria.glb', 'luna.glb', 'nova.glb', 'vega.glb', 'zara.glb'];
+
 // ─── SVG Fallback Avatar ──────────────────────────────────────────────────────
 
 const SVGAvatar: React.FC<{ lipSyncValue: number; animationState: string }> = ({
@@ -128,6 +131,12 @@ const AvatarScreen = () => {
 
   // Watch ttsService isSpeaking
   useEffect(() => {
+    if (!avatarStore.modelPath) {
+      avatarStore.setModelPath(`${GITHUB_RAW}/aria.glb`);
+    }
+  }, []);
+
+  useEffect(() => {
     let prevSpeaking = false;
     const poll = setInterval(() => {
       const now = ttsService.isSpeaking();
@@ -234,7 +243,6 @@ const AvatarScreen = () => {
 
 // ─── Change Avatar Button with Ad Gate ───────────────────────────────────────
 
-const AVATAR_MODELS = ['default.glb', 'robot.glb', 'anime.glb', 'warrior.glb'];
 
 const ChangeAvatarButton: React.FC = () => {
   const adStore = useAdStore();
@@ -245,7 +253,7 @@ const ChangeAvatarButton: React.FC = () => {
 
   const applyAvatar = React.useCallback(
     (model: string) => {
-      avatarStore.setModelPath(model);
+      avatarStore.setModelPath(`${GITHUB_RAW}/${model}`);
       avatarStore.setIsTalking(true);
       const greeting = settingsStore.assistantProfile.greeting ?? 'Hello, how can I assist you?';
       const cuteMode = settingsStore.avatarCuteMode ?? 'mild';
