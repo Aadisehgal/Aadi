@@ -38,16 +38,9 @@ jobs:
 
     - name: Patch react-native dependencies
       run: |
-        for f in \
-          node_modules/react-native-gesture-handler/android/build.gradle \
-          node_modules/@react-native-clipboard/clipboard/android/build.gradle \
-          node_modules/react-native-reanimated/android/build.gradle \
-          node_modules/react-native-safe-area-context/android/build.gradle ; do
-          if [ -f "$f" ]; then
-            sed -i "s|['\"]com\.facebook\.react:react-native:+['\"]|'com.facebook.react:react-android:0.74.3'|g" "$f"
-            sed -i "s|['\"]com\.facebook\.react:react-native:[^'\"]*['\"]|'com.facebook.react:react-android:0.74.3'|g" "$f"
-            sed -i "s|['\"]com\.facebook\.react:react-android['\"]|'com.facebook.react:react-android:0.74.3'|g" "$f"
-          fi
+        find node_modules -name "build.gradle" | while read f; do
+          sed -i "s|['\"]com\.facebook\.react:react-native:+['\"]|'com.facebook.react:react-android:0.74.3'|g" "$f"
+          sed -i "s|['\"]com\.facebook\.react:react-native:[^'\"]*['\"]|'com.facebook.react:react-android:0.74.3'|g" "$f"
         done
 
     - name: Fix buildConfig for all modules
