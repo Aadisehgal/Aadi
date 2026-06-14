@@ -17,7 +17,6 @@ import { useVoiceStore } from '@stores/useVoiceStore';
 import { useSettingsStore } from '@stores/useSettingsStore';
 import { useOffline } from '@hooks/useOffline';
 import { useChat } from '@hooks/useChat';
-import { useVoice } from '@hooks/useVoice';
 import { ttsService } from '@services/ttsService';
 import { ErrorBoundary } from '@components/ErrorBoundary';
 import MessageItem, { MESSAGE_HEIGHT } from '@components/MessageItem';
@@ -31,8 +30,8 @@ function ChatScreenInner() {
   const settingsStore = useSettingsStore();
   const { isOnline, queuedCount, retryQueue } = useOffline();
   const { sendMessage } = useChat();
-  // const { isListening, waveformData, voiceMode, startListening, stopListening } = useVoice();
-  // const isSpeaking = useVoiceStore((s) => s.isSpeaking);
+  const { isListening, waveformData, voiceMode, startListening, stopListening } = useVoice();
+  const isSpeaking = useVoiceStore((s) => s.isSpeaking);
 
   // Auto-create conversation if none exists
   React.useEffect(() => {

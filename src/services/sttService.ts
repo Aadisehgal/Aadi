@@ -2,11 +2,11 @@
  * STT Service — wraps react-native-voice with a clean async API.
  * Handles permission check, locale config, and event forwarding.
  */
-import Voice, {
+// import Voice, {
   type SpeechResultsEvent,
   type SpeechErrorEvent,
   type SpeechVolumeChangeEvent,
-} from '@react-native-voice/voice';
+// } from '@react-native-voice/voice';
 import { PermissionsAndroid, Platform } from 'react-native';
 
 type STTCallbacks = {
