@@ -174,7 +174,7 @@ function ChatScreenInner() {
   return (
     <View
     style={[styles.root, styles.container]}
-    pointerEvents="box-none"
+    pointerEvents="auto"
 >
         {/* Header */}
         <View style={styles.header}>

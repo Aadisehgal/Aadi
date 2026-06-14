@@ -159,7 +159,7 @@ const AvatarScreen = () => {
 
   // Simulate loading
   useEffect(() => {
-    const t = setTimeout(() => setIsLoading(false), 600);
+    const t = setTimeout(() => setIsLoading(false), 100);
     return () => clearTimeout(t);
   }, []);
 
