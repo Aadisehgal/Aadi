@@ -36,6 +36,14 @@ function LazyScreen({ Screen }: { Screen: React.LazyExoticComponent<() => React.
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
+const ChatScreenWrapper    = () => <LazyScreen Screen={ChatScreen as React.LazyExoticComponent<() => React.JSX.Element>} />;
+const ConvsWrapper         = () => <LazyScreen Screen={ConversationsScreen as React.LazyExoticComponent<() => React.JSX.Element>} />;
+const AvatarWrapper        = () => <LazyScreen Screen={AvatarScreen as React.LazyExoticComponent<() => React.JSX.Element>} />;
+const DocsWrapper          = () => <LazyScreen Screen={DocumentScreen as React.LazyExoticComponent<() => React.JSX.Element>} />;
+const MemoryWrapper        = () => <LazyScreen Screen={MemoryScreen as React.LazyExoticComponent<() => React.JSX.Element>} />;
+const NotesWrapper         = () => <LazyScreen Screen={NotesScreen as React.LazyExoticComponent<() => React.JSX.Element>} />;
+const SettingsWrapper      = () => <LazyScreen Screen={SettingsScreen as React.LazyExoticComponent<() => React.JSX.Element>} />;
+
 const MainTabs = () => {
   return (
     <Tab.Navigator
@@ -45,30 +53,15 @@ const MainTabs = () => {
         tabBarActiveTintColor: '#e94560',
         tabBarInactiveTintColor: '#888',
         tabBarHideOnKeyboard: true,
-        lazy: false,
       }}
     >
-      <Tab.Screen name="Chat" options={{ tabBarLabel: 'Chat' }}>
-        {() => <LazyScreen Screen={ChatScreen as React.LazyExoticComponent<() => React.JSX.Element>} />}
-      </Tab.Screen>
-      <Tab.Screen name="Convs" options={{ tabBarLabel: 'Chats' }}>
-        {() => <LazyScreen Screen={ConversationsScreen as React.LazyExoticComponent<() => React.JSX.Element>} />}
-      </Tab.Screen>
-      <Tab.Screen name="Avatar" options={{ tabBarLabel: 'Avatar' }}>
-        {() => <LazyScreen Screen={AvatarScreen as React.LazyExoticComponent<() => React.JSX.Element>} />}
-      </Tab.Screen>
-      <Tab.Screen name="Docs" options={{ tabBarLabel: 'Docs' }}>
-        {() => <LazyScreen Screen={DocumentScreen as React.LazyExoticComponent<() => React.JSX.Element>} />}
-      </Tab.Screen>
-      <Tab.Screen name="Memory" options={{ tabBarLabel: 'Memory' }}>
-        {() => <LazyScreen Screen={MemoryScreen as React.LazyExoticComponent<() => React.JSX.Element>} />}
-      </Tab.Screen>
-      <Tab.Screen name="Notes" options={{ tabBarLabel: 'Notes' }}>
-        {() => <LazyScreen Screen={NotesScreen as React.LazyExoticComponent<() => React.JSX.Element>} />}
-      </Tab.Screen>
-      <Tab.Screen name="Settings" options={{ tabBarLabel: 'Settings' }}>
-        {() => <LazyScreen Screen={SettingsScreen as React.LazyExoticComponent<() => React.JSX.Element>} />}
-      </Tab.Screen>
+      <Tab.Screen name="Chat" options={{ tabBarLabel: 'Chat' }} component={ChatScreenWrapper} />
+      <Tab.Screen name="Convs" options={{ tabBarLabel: 'Chats' }} component={ConvsWrapper} />
+      <Tab.Screen name="Avatar" options={{ tabBarLabel: 'Avatar' }} component={AvatarWrapper} />
+      <Tab.Screen name="Docs" options={{ tabBarLabel: 'Docs' }} component={DocsWrapper} />
+      <Tab.Screen name="Memory" options={{ tabBarLabel: 'Memory' }} component={MemoryWrapper} />
+      <Tab.Screen name="Notes" options={{ tabBarLabel: 'Notes' }} component={NotesWrapper} />
+      <Tab.Screen name="Settings" options={{ tabBarLabel: 'Settings' }} component={SettingsWrapper} />
     </Tab.Navigator>
   );
 };
@@ -88,7 +81,7 @@ const AppNavigator = () => {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false, contentStyle: { flex: 1 } }}>
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
         {needsAuth ? (
           <Stack.Screen name="Auth">
             {() => <LazyScreen Screen={AuthScreen as React.LazyExoticComponent<() => React.JSX.Element>} />}
