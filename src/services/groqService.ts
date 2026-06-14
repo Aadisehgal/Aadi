@@ -8,7 +8,7 @@ const API_KEY_STORAGE = 'groq_api_key';
 
 // Primary and fallback models per spec
 const PRIMARY_MODEL = 'llama-3.3-70b-versatile';
-const FALLBACK_MODEL = 'mixtral-8x7b-32768';
+const FALLBACK_MODEL = 'llama-3.1-8b-instant';
 const MAX_RETRY_ATTEMPTS = 3;
 
 interface StreamChatCallbacks {
