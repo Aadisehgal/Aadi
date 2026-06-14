@@ -17,7 +17,6 @@
     "@react-navigation/bottom-tabs": "6.6.1",
     "@react-navigation/native": "6.1.18",
     "@react-navigation/native-stack": "6.9.26",
-    "@react-native-voice/voice": "3.2.4",
     "@tanstack/react-query": "5.51.1",
     "axios": "1.7.2",
     "fuse.js": "7.0.0",
