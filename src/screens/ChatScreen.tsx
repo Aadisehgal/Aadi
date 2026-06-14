@@ -174,8 +174,9 @@ function ChatScreenInner() {
 
   return (
     <View
-        style={[styles.root, styles.container]}
-      >
+    style={[styles.root, styles.container]}
+    pointerEvents="box-none"
+>
         {/* Header */}
         <View style={styles.header}>
           <Text style={styles.headerTitle}>{assistantName}</Text>
