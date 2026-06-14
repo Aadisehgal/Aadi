@@ -18,7 +18,6 @@ import { useSettingsStore } from '@stores/useSettingsStore';
 import { useOffline } from '@hooks/useOffline';
 import { useChat } from '@hooks/useChat';
 import { useVoice } from '@hooks/useVoice';
-import { adService } from '@services/adService';
 import { ttsService } from '@services/ttsService';
 import { ErrorBoundary } from '@components/ErrorBoundary';
 import MessageItem, { MESSAGE_HEIGHT } from '@components/MessageItem';
@@ -267,7 +266,6 @@ function ChatScreenInner() {
           )}
         </View>
 
-        />
     </KeyboardAvoidingView>
   );
 }
