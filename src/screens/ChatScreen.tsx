@@ -29,7 +29,7 @@ function ChatScreenInner() {
   const chatStore = useChatStore();
   const voiceStore = useVoiceStore();
   const settingsStore = useSettingsStore();
-  // const { isOnline, queuedCount, retryQueue } = useOffline();
+  const { isOnline, queuedCount, retryQueue } = useOffline();
   const { sendMessage } = useChat();
   // const { isListening, waveformData, voiceMode, startListening, stopListening } = useVoice();
   // const isSpeaking = useVoiceStore((s) => s.isSpeaking);
@@ -191,7 +191,7 @@ function ChatScreenInner() {
         </View>
 
         {/* Offline indicator */}
-        // {!isOnline && (
+        {!isOnline && (
           <OfflineIndicator
             queuedCount={queuedCount}
             onRetry={retryQueue}
