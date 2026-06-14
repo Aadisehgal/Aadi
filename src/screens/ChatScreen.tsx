@@ -173,9 +173,8 @@ function ChatScreenInner() {
   };
 
   return (
-    <KeyboardAvoidingView
+    <View
         style={[styles.root, styles.container]}
-        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
       >
         {/* Header */}
         <View style={styles.header}>
@@ -266,7 +265,7 @@ function ChatScreenInner() {
           )}
         </View>
 
-    </KeyboardAvoidingView>
+    </View>
   );
 }
 
