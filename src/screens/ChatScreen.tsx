@@ -29,10 +29,10 @@ function ChatScreenInner() {
   const chatStore = useChatStore();
   const voiceStore = useVoiceStore();
   const settingsStore = useSettingsStore();
-  const { isOnline, queuedCount, retryQueue } = useOffline();
+  // const { isOnline, queuedCount, retryQueue } = useOffline();
   const { sendMessage } = useChat();
-  const { isListening, waveformData, voiceMode, startListening, stopListening } = useVoice();
-  const isSpeaking = useVoiceStore((s) => s.isSpeaking);
+  // const { isListening, waveformData, voiceMode, startListening, stopListening } = useVoice();
+  // const isSpeaking = useVoiceStore((s) => s.isSpeaking);
 
   // Auto-create conversation if none exists
   React.useEffect(() => {
@@ -191,7 +191,7 @@ function ChatScreenInner() {
         </View>
 
         {/* Offline indicator */}
-        {!isOnline && (
+        // {!isOnline && (
           <OfflineIndicator
             queuedCount={queuedCount}
             onRetry={retryQueue}
@@ -236,7 +236,7 @@ function ChatScreenInner() {
         />
 
         {/* Waveform animation (standalone component) */}
-        {isListening && (
+        // {isListening && (
           <WaveformAnimation waveformData={waveformData} color="#e94560" height={50} />
         )}
 
@@ -259,7 +259,7 @@ function ChatScreenInner() {
             <Text style={styles.sendBtnText}>➤</Text>
           </TouchableOpacity>
           {renderMicButton()}
-          {isSpeaking && (
+          // {isSpeaking && (
             <TouchableOpacity onPress={handleStopSpeaking} style={styles.stopBtn}>
               <Text style={styles.stopBtnText}>⏹</Text>
             </TouchableOpacity>
