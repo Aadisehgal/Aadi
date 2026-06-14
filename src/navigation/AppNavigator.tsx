@@ -1,15 +1,14 @@
 import React, { Suspense, lazy } from 'react';
-import { View, ActivityIndicator, StyleSheet } from 'react-native';
+import { View, ActivityIndicator, StyleSheet, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useAuthStore } from '@stores/useAuthStore';
 import { useSettingsStore } from '@stores/useSettingsStore';
 
-// ─── Lazy-loaded screens ──────────────────────────────────────────────────────
 const AuthScreen          = lazy(() => import('@screens/AuthScreen'));
 const ChatScreen          = lazy(() => import('@screens/ChatScreen'));
-const AvatarScreen        = lazy(() => import('@screens/AvatarScreen'));
+const AvatarScreen        = lazy(() => import('@screens/AvatarScreen').catch(() => ({ default: () => <View style={{flex:1,backgroundColor:'#0f0f1a',justifyContent:'center',alignItems:'center'}}><Text style={{color:'#888'}}>Avatar unavailable</Text></View> })));
 const SettingsScreen      = lazy(() => import('@screens/SettingsScreen'));
 const MemoryScreen        = lazy(() => import('@screens/MemoryScreen'));
 const DebugScreen         = lazy(() => import('@screens/DebugScreen'));
@@ -18,7 +17,6 @@ const RemindersScreen     = lazy(() => import('@screens/RemindersScreen'));
 const DocumentScreen      = lazy(() => import('@screens/DocumentScreen'));
 const ConversationsScreen = lazy(() => import('@screens/ConversationsScreen'));
 
-// ─── Suspense fallback ────────────────────────────────────────────────────────
 function ScreenLoader() {
   return (
     <View style={styles.loader}>
@@ -46,6 +44,8 @@ const MainTabs = () => {
         tabBarStyle: { backgroundColor: '#1a1a2e', borderTopColor: '#16213e' },
         tabBarActiveTintColor: '#e94560',
         tabBarInactiveTintColor: '#888',
+        tabBarHideOnKeyboard: true,
+        lazy: false,
       }}
     >
       <Tab.Screen name="Chat" options={{ tabBarLabel: 'Chat' }}>
@@ -88,7 +88,7 @@ const AppNavigator = () => {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Navigator screenOptions={{ headerShown: false, contentStyle: { flex: 1 } }}>
         {needsAuth ? (
           <Stack.Screen name="Auth">
             {() => <LazyScreen Screen={AuthScreen as React.LazyExoticComponent<() => React.JSX.Element>} />}
