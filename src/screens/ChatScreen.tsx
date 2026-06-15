@@ -40,8 +40,6 @@ function ChatScreenInner() {
     }
   }, [chatStore]);
 
-    ttsService.stop().catch(() => {});
-  }, []);
 
   const [inputText, setInputText] = useState('');
   const [searchVisible, setSearchVisible] = useState(false);
