@@ -17,6 +17,7 @@ import { useVoiceStore } from '@stores/useVoiceStore';
 import { useSettingsStore } from '@stores/useSettingsStore';
 import { useOffline } from '@hooks/useOffline';
 import { useChat } from '@hooks/useChat';
+
 import { ttsService } from '@services/ttsService';
 import { ErrorBoundary } from '@components/ErrorBoundary';
 import MessageItem, { MESSAGE_HEIGHT } from '@components/MessageItem';
@@ -40,6 +41,9 @@ function ChatScreenInner() {
     }
   }, [chatStore]);
 
+  const handleStopSpeaking = useCallback(() => {
+    ttsService.stop().catch(() => {});
+  }, []);
 
   const [inputText, setInputText] = useState('');
   const [searchVisible, setSearchVisible] = useState(false);
@@ -170,9 +174,8 @@ function ChatScreenInner() {
 
   return (
     <View
-    style={[styles.root, styles.container]}
-    pointerEvents="auto"
->
+        style={[styles.root, styles.container]}
+      >
         {/* Header */}
         <View style={styles.header}>
           <Text style={styles.headerTitle}>{assistantName}</Text>
@@ -219,6 +222,7 @@ function ChatScreenInner() {
               onLongPress={handleLongPress}
               onSwipeDelete={handleSwipeDelete}
             />
+          )}
           contentContainerStyle={styles.listContent}
           onContentSizeChange={() =>
             flatListRef.current?.scrollToEnd({ animated: true })
@@ -254,6 +258,11 @@ function ChatScreenInner() {
             <Text style={styles.sendBtnText}>➤</Text>
           </TouchableOpacity>
           {renderMicButton()}
+          {isSpeaking && (
+            <TouchableOpacity onPress={handleStopSpeaking} style={styles.stopBtn}>
+              <Text style={styles.stopBtnText}>⏹</Text>
+            </TouchableOpacity>
+          )}
         </View>
 
     </View>
