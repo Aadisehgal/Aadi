@@ -54,6 +54,10 @@ class GroqService {
     mmkvStorage.set(API_KEY_STORAGE, key);
   }
 
+  getApiKey(): string {
+    return mmkvStorage.getString(API_KEY_STORAGE) ?? '';
+  }
+
   setModel(model: string): void {
     this.model = model;
   }

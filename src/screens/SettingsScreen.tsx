@@ -55,7 +55,7 @@ function SettingsScreenInner() {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   const [apiKeyVisible, setApiKeyVisible] = useState(false);
-  const [apiKeyInput, setApiKeyInput] = useState('');
+  const [apiKeyInput, setApiKeyInput] = useState(() => groqService.getApiKey());
 
   const saveApiKey = useCallback(() => {
     if (!apiKeyInput.trim()) return;
