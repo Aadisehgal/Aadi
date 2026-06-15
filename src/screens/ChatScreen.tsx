@@ -30,7 +30,7 @@ function ChatScreenInner() {
   const settingsStore = useSettingsStore();
   const { isOnline, queuedCount, retryQueue } = useOffline();
   const { sendMessage } = useChat();
-  const { isListening, waveformData, voiceMode, startListening, stopListening } = useVoice();
+  const isListening = false; const waveformData: number[] = []; const voiceMode = 'tap'; const startListening = async () => {}; const stopListening = async () => {};
   const isSpeaking = useVoiceStore((s) => s.isSpeaking);
 
   // Auto-create conversation if none exists
@@ -235,7 +235,7 @@ function ChatScreenInner() {
         />
 
         {/* Waveform animation (standalone component) */}
-        // {isListening && (
+        {isListening && (
           <WaveformAnimation waveformData={waveformData} color="#e94560" height={50} />
         )}
 
