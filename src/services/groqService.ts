@@ -1,5 +1,6 @@
 import axios, { type AxiosInstance } from 'axios';
-import EncryptedStorage from 'react-native-encrypted-storage';
+import { MMKV } from 'react-native-mmkv';
+const mmkvStorage = new MMKV({ id: 'secure-storage', encryptionKey: 'manu-ai-secret' });
 import { storageService } from '@services/storageService';
 import type { Message, AssistantProfile, UserProfile } from '@apptypes/index';
 
@@ -38,9 +39,10 @@ class GroqService {
     });
   }
 
-  async loadApiKey(): Promise<void> {
+  loadApiKey(): void {
+    // sync load
     try {
-      const key = await EncryptedStorage.getItem(API_KEY_STORAGE);
+      const key = mmkvStorage.getString(API_KEY_STORAGE);
       if (key) this.apiKey = key;
     } catch {
       // No key stored yet
@@ -49,7 +51,7 @@ class GroqService {
 
   async saveApiKey(key: string): Promise<void> {
     this.apiKey = key;
-    await EncryptedStorage.setItem(API_KEY_STORAGE, key);
+    mmkvStorage.set(API_KEY_STORAGE, key);
   }
 
   setModel(model: string): void {
@@ -100,6 +102,7 @@ class GroqService {
     onError: (error: string) => void,
     startTime: number
   ): Promise<boolean> {
+    // sync load
     try {
       const response = await this.client.post(
         '/chat/completions',
@@ -138,7 +141,8 @@ class GroqService {
             if (!stripped || stripped === 'data: [DONE]') continue;
             if (!stripped.startsWith('data: ')) continue;
 
-            try {
+            // sync load
+    try {
               const json = JSON.parse(stripped.slice(6)) as {
                 choices?: Array<{ delta?: { content?: string } }>;
               };
@@ -265,7 +269,8 @@ class GroqService {
 
     for (const modelToUse of modelsToTry) {
       for (let attempt = 1; attempt <= MAX_RETRY_ATTEMPTS; attempt++) {
-        try {
+        // sync load
+    try {
           const response = await this.client.post<{
             choices: Array<{ message: { content: string } }>;
           }>(
@@ -301,6 +306,7 @@ class GroqService {
   }
 
   async testConnection(): Promise<boolean> {
+    // sync load
     try {
       await this.complete('Say "ok" in one word.', undefined, 10);
       return true;
