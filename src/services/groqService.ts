@@ -1,6 +1,6 @@
 import axios, { type AxiosInstance } from 'axios';
 import { MMKV } from 'react-native-mmkv';
-const mmkvStorage = new MMKV({ id: 'secure-storage', encryptionKey: 'manu-ai-secret' });
+const mmkvStorage = new MMKV({ id: 'groq-storage' });
 import { storageService } from '@services/storageService';
 import type { Message, AssistantProfile, UserProfile } from '@apptypes/index';
 
