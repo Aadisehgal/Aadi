@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from 'react';
+import { groqService } from '@services/groqService';
 import {
   View,
   Text,
@@ -58,7 +59,7 @@ function SettingsScreenInner() {
 
   const saveApiKey = useCallback(() => {
     if (!apiKeyInput.trim()) return;
-    storageService.saveApiKey(apiKeyInput.trim()).catch(() => {});
+    groqService.saveApiKey(apiKeyInput.trim()).catch(() => {});
     setApiKeyInput('');
     Alert.alert('Saved', 'API key saved securely.');
   }, [apiKeyInput]);
