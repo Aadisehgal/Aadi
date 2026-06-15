@@ -40,7 +40,6 @@ function ChatScreenInner() {
     }
   }, [chatStore]);
 
-  const handleStopSpeaking = useCallback(() => {
     ttsService.stop().catch(() => {});
   }, []);
 
@@ -222,7 +221,6 @@ function ChatScreenInner() {
               onLongPress={handleLongPress}
               onSwipeDelete={handleSwipeDelete}
             />
-          )}
           contentContainerStyle={styles.listContent}
           onContentSizeChange={() =>
             flatListRef.current?.scrollToEnd({ animated: true })
@@ -258,11 +256,6 @@ function ChatScreenInner() {
             <Text style={styles.sendBtnText}>➤</Text>
           </TouchableOpacity>
           {renderMicButton()}
-          // {isSpeaking && (
-            <TouchableOpacity onPress={handleStopSpeaking} style={styles.stopBtn}>
-              <Text style={styles.stopBtnText}>⏹</Text>
-            </TouchableOpacity>
-          )}
         </View>
 
     </View>
