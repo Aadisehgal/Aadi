@@ -60,7 +60,7 @@ function SettingsScreenInner() {
   const saveApiKey = useCallback(() => {
     if (!apiKeyInput.trim()) return;
     groqService.saveApiKey(apiKeyInput.trim()).catch(() => {});
-    setApiKeyInput('');
+
     Alert.alert('Saved', 'API key saved securely.');
   }, [apiKeyInput]);
 
