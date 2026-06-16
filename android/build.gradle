@@ -30,7 +30,6 @@ allprojects {
         resolutionStrategy {
             force "com.facebook.react:react-android:0.74.3"
             force "com.facebook.react:hermes-android:0.74.3"
-            force "app.notifee:core:7.8.2"
         }
         resolutionStrategy.dependencySubstitution {
             substitute module("com.facebook.react:react-native") using module("com.facebook.react:react-android:0.74.3")
@@ -52,5 +51,12 @@ allprojects {
                 jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17
             }
         }
+    }
+}
+
+// Force notifee core to use local AAR
+configurations.all {
+    resolutionStrategy.dependencySubstitution {
+        substitute module("app.notifee:core") using files("${rootDir}/../node_modules/@notifee/react-native/android/libs/app/notifee/core/202108261754/core-202108261754.aar")
     }
 }
