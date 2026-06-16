@@ -41,7 +41,7 @@ jobs:
         find node_modules -name "build.gradle" | while read f; do
           sed -i "s|['\"]com\.facebook\.react:react-native:+['\"]|'com.facebook.react:react-android:0.74.3'|g" "$f"
           sed -i "s|['\"]com\.facebook\.react:react-native:[^'\"]*['\"]|'com.facebook.react:react-android:0.74.3'|g" "$f"
-          sed -i "s|version: '+'|version: '7.8.2'|g" "$f"
+          sed -i "s|version: '+'|version: '202108261754'|g" "$f"
         done
 
     - name: Fix buildConfig for all modules
