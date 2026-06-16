@@ -41,8 +41,11 @@ jobs:
         find node_modules -name "build.gradle" | while read f; do
           sed -i "s|['\"]com\.facebook\.react:react-native:+['\"]|'com.facebook.react:react-android:0.74.3'|g" "$f"
           sed -i "s|['\"]com\.facebook\.react:react-native:[^'\"]*['\"]|'com.facebook.react:react-android:0.74.3'|g" "$f"
-          sed -i "s|version: '+'|version: '202108261754'|g" "$f"
         done
+
+    - name: Fix notifee local core version
+      run: |
+        sed -i "s|implementation(group: 'app.notifee', name:'core', version: '+')|implementation(group: 'app.notifee', name:'core', version: '202108261754')|g" node_modules/@notifee/react-native/android/build.gradle
 
     - name: Fix buildConfig for all modules
       run: |
